@@ -1,0 +1,426 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!--
+
+  Checkstyle configuration that checks the sun coding conventions from:
+
+    - the Java Language Specification at
+      http://java.sun.com/docs/books/jls/second_edition/html/index.html
+
+    - the Sun Code Conventions at http://java.sun.com/docs/codeconv/
+
+    - the Javadoc guidelines at
+      http://java.sun.com/j2se/javadoc/writingdoccomments/index.html
+
+    - the JDK Api documentation http://java.sun.com/j2se/docs/api/index.html
+
+    - some best practices
+
+  Checkstyle is very configurable. Be sure to read the documentation at
+  http://checkstyle.sf.net (or in your downloaded distribution).
+
+  Most Checks are configurable, be sure to consult the documentation.
+
+  To completely disable a check, just comment it out or delete it from the file.
+
+  Finally, it is worth reading the documentation.
+
+-->
+
+<module name="Checker">
+    <!--
+        If you set the basedir property below, then all reported file
+        names will be relative to the specified directory. See
+        http://checkstyle.sourceforge.net/5.x/config.html#Checker
+
+        <property name="basedir" value="${basedir}"/>
+    -->
+
+    <!-- Checks that each Java package has a Javadoc file used for commenting. -->
+    <!-- See http://checkstyle.sf.net/config_javadoc.html#JavadocPackage       -->
+    <!--    <module name="JavadocPackage">-->
+    <!--      <property name="allowLegacy" value="true"/>-->
+    <!--    </module>-->
+
+    <!-- Checks whether files end with a new line.                        -->
+    <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
+    <!--    for windows-->
+    <!--    <module name="NewlineAtEndOfFile"/>-->
+
+    <!-- Checks that property files contain the same keys.         -->
+    <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
+    <!--    <module name="Translation"/>-->
+
+    <!-- 规则 源文件编码格式（包括注释）必须是UTF-8 非utf8解析解析时会报异常 -->
+    <!--    <property name="charset" value="UTF-8"/>-->
+
+    <!-- 单个代码文件的长度不超过2000行。说明：过长的单个代码文件意味着有可能在代码中放入了过多的职责，不利于后期维护 -->
+    <module name="FileLength"/>
+
+    <!-- Following interprets the header file as regular expressions. -->
+    <!-- <module name="RegexpHeader"/>                                -->
+
+    <!-- 禁止使用Tab字符 -->
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+
+    <module name="SuppressWithPlainTextCommentFilter">
+        <property name="offCommentFormat" value="CHECKSTYLE:OFF"/>
+        <property name="onCommentFormat" value="CHECKSTYLE:OFF"/>
+    </module>
+
+    <module name="SuppressWithPlainTextCommentFilter">
+        <property name="offCommentFormat" value="CSOFF\: ([\w\|]+)"/>
+        <property name="onCommentFormat" value="CSON\: ([\w\|]+)"/>
+        <property name="checkFormat" value="$1"/>
+    </module>
+
+    <module name="TreeWalker">
+
+        <module name="SuppressionCommentFilter"/>
+
+        <module name="SuppressionCommentFilter">
+            <property name="offCommentFormat" value="CSOFF\: ([\w\|]+)"/>
+            <property name="onCommentFormat" value="CSON\: ([\w\|]+)"/>
+            <property name="checkFormat" value="$1"/>
+        </module>
+
+        <!-- required for SuppressWarningsFilter (and other Suppress* rules not used here) -->
+        <!-- see http://checkstyle.sourceforge.net/config_annotation.html#SuppressWarningsHolder -->
+        <module name="SuppressWarningsHolder"/>
+
+        <!-- Checks for Javadoc comments.                     -->
+        <!-- See http://checkstyle.sf.net/config_javadoc.html -->
+        <module name="JavadocType">
+            <property name="scope" value="public"/>
+            <property name="allowMissingParamTags" value="true"/>
+            <property name="allowUnknownTags" value="true"/>
+        </module>
+        <!--        <module name="JavadocMethod"/>-->
+        <!--        <module name="JavadocVariable"/>-->
+        <!--        <module name="JavadocStyle"/>-->
+
+
+        <!-- Checks for Naming Conventions.                  -->
+        <!-- See http://checkstyle.sf.net/config_naming.html -->
+
+        <!--  代码文件中采用4个空格缩进 -->
+        <!-- <module name="Indentation"/> -->
+
+        <!-- 命名 -->
+        <!-- 常量使用大写字母、数字和下划线命名，以字母开头 -->
+        <module name="ConstantName">
+            <property name="format" value="^log(ger)?$|^.*Log(ger)?$|^([A-Z][A-Z0-9]*(_[A-Z0-9]+)*)$"/>
+        </module>
+        <!-- 变量、字段、方法、参数使用字母、数字命名，以小写字母开头，单词之间使用驼峰写法连接 -->
+        <module name="LocalVariableName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="MemberName"/>
+        <module name="ParameterName"/>
+        <module name="MethodName"/>
+        <!-- 类、接口、枚举、注解等类型使用字母、数字命名，以大写字母开头，单词之间使用驼峰写法连接 -->
+        <module name="TypeName"/>
+        <!-- 包名使用小写字母、数字命名，以字母开头，自然分隔的单词之间使用.连接；单词使用单数形式 -->
+        <module name="PackageName"/>
+        <!-- 类型为布尔型的类字段，禁止使用is开头，以防部分框架解析和序列化错误。说明：不同框架、序列化器可能遵循不同的规范。
+        例如一个名为isDeleted的布尔型属性，它的访问方法也是isDeleted()，框架在反向解析时可能误认为对应的属性名是deleted，导致属性访问不到 -->
+        <!--        <module name="RegexpSinglelineJava">-->
+        <!--            <property name="format" value="(boolean|Boolean)\s(is)[^\(]"/>-->
+        <!--            <property name="message" value="类型为布尔型的类字段，禁止使用is开头，以防部分框架解析和序列化错误"/>-->
+        <!--        </module>-->
+
+        <!-- 代码格式 -->
+        <!-- 禁止在if/else/switch/for/while/do/try/finally/同步块/初始化块中使用空的大括号块 -->
+        <module name="EmptyBlock">
+            <property name="severity" value="warning"/>
+        </module>
+        <!-- 大括号的换行规则：左大括号前不换行，左大括号后换行；右大括号前换行，右大括号后还有else等代码则不换行，表示终止的右大括号必须换行 -->
+        <module name="LeftCurly"/>
+        <module name="RightCurly"/>
+        <module name="NeedBraces"/>
+        <!-- 空格规则：右小括号后接的左大括号前必须接一个空格，
+        左小括号和右边紧邻的字符之间不空格，
+        右小括号与左边相邻字符也不空格if/for/while/switch/do等保留字后接的左小括号前必须接一个空格，除保留字外的左小括号前不加空格
+        强制类型转换的右小空格后接一个空格
+        二目、三目运算符的左右都必须接一个空格
+        非行尾的逗号后必须接一个空格
+        注释的双斜线后到内容之间必须接一个空格
+        每行代码的行末不要出现空格 -->
+        <module name="EmptyForIteratorPad"/>
+        <module name="MethodParamPad"/>
+        <module name="NoWhitespaceAfter">
+            <property name="tokens" value="BNOT,DEC,DOT,INC,LNOT,UNARY_MINUS,UNARY_PLUS,ARRAY_DECLARATOR"/>
+        </module>
+        <module name="NoWhitespaceBefore">
+            <property name="allowLineBreaks" value="true"/>
+            <property name="tokens" value="COMMA,SEMI,POST_INC,POST_DEC,ELLIPSIS"/>
+        </module>
+        <module name="ParenPad"/>
+        <module name="TypecastParenPad"/>
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround"/>
+
+        <!-- 单行代码超出长度需要换行时按照：运算符与下文一起换行,类成员访问的点符号与下文一起换行,
+        方法调用中的多个参数需要换行时，在逗号后换行括号前不要换行 -->
+        <module name="OperatorWrap"/>
+        <module name="SeparatorWrap">
+            <property name="severity" value="warning"/>
+            <property name="tokens" value="DOT"/>
+            <property name="option" value="nl"/>
+        </module>
+        <module name="SeparatorWrap">
+            <property name="severity" value="warning"/>
+            <property name="tokens" value="COMMA"/>
+            <property name="option" value="eol"/>
+        </module>
+
+        <!-- 为防意外地吞掉异常，禁止出现空的Catch块；对于需要显式吞掉的异常，异常变量命名为impossible、expected、ignore，并保留合理的注释说明 -->
+        <module name="EmptyCatchBlock">
+            <property name="exceptionVariableName" value="impossible|expected|ignore"/>
+            <message key="catch.block.empty" value="catch 块不能为空，特殊情况请用合理的注释代替"/>
+        </module>
+
+        <!-- 为了防止意外导入类和方法，禁止使用*进行批量导入，所有的导入必须显式声明。说明：使用显式导入能够避免将某包下的所有类，
+        或者某类中的所有静态方法都导入。意外的导入可能让当前上下文中误用相应的类或者方法-->
+        <module name="AvoidStarImport"/>
+
+        <!-- 禁止多余的导入语句，包括重复的导入、显式导入java.lang包下的类、显式导入同包下的类 -->
+        <module name="RedundantImport"/>
+
+        <!-- 为防止意外可能误用或者使用了已知会引起问题的组件、包和类，附录2列表中列出的组件、包和类禁止在项目中使用 -->
+        <module name="IllegalImport">
+            <property name="regexp" value="true"/>
+            <property name="illegalPkgs"
+                      value="^com\.google\.api\.client\.repackaged, ^avro\.shaded, ^org\.apache\.hadoop\.hbase\.shaded,
+                      ^org\.apache\.hadoop\.shaded, ^javax\.ws\.rs\.ext, ^cc\.concurrent\.mango\.util\.concurrent,
+                      ^org\.apache\.curator\.shaded, ^org\.apache\.curator-test\.shaded, ^com\.sun\.istack,
+                      ^org\.apache\.directory\.api\.util, ^org\.apache\.commons\.lang, ^org\.jetbrains\.annotations,
+                      ^jline\.internal, ^com\.cronutils\.utils, ^javax\.ws\.rs\.ext, ^org\.apache\.commons\.collections,
+                      ^org\.apache\.commons\.logging, ^org\.jboss\.netty\.util\.internal, ^com\.sun\.javafx,
+                      ^io\.reactivex\.annotations, ^org\.apache\.commons\.compress\.compressors\.lz4,
+                      ^org\.codehaus\.jackson, ^org\.checkerframework\.checker\.nullness\.compatqual, ^com\.beust\.jcommander\.internal,
+                      ^org\.testng\.collections, ^javafx\.util, ^com\.alibaba\.fastjson"/>
+            <property name="illegalClasses"
+                      value="^com.mysql.jdbc.StringUtils, ^java\.util\.logging\.Logging, ^org\.apache\.logging\.log4j\.Logger,
+                      ^org\.apache\.hadoop\.util\.StringUtils, ^groovy\.lang\.Lazy, ^org\.springframework\.util\.concurrent\.ListenableFuture,
+                      ^sun\.misc\.BASE64Encoder, ^sun\.misc\.BASE64Decoder, ^jdk\.internal\.jline\.internal\.Nullable, ^javax\.management\.relation\.RelationService,
+                      ^com\.github\.shyiko\.mysql\.binlog\.io\.ByteArrayInputStream, ^com\.kuaishou\.framework\.scope\.ScopeBufferTriggerBuilder,
+                      ${illegalClasses}"/>
+        </module>
+
+        <!-- 导入语句应当按照一定的顺序：按照前缀java、javax、org、com和其他分为5组，每组依上述的次排列，
+        组内按照字母顺序排列，静态方法导入放置于每组的开头。说明：导入语句的顺序进行排序，是为了尽可能避免在代码格式化或者新增导入之后引起Git冲突-->
+        <module name="ImportOrder">
+            <property name="groups" value="java,javax,org,com"/>
+            <property name="ordered" value="true"/>
+            <property name="separated" value="true"/>
+            <property name="option" value="top"/>
+            <property name="sortStaticImportsAlphabetically" value="true"/>
+        </module>
+
+        <!-- 为了保持方法的简洁，一个方法中传入的参数不能超过7个；如一个方法需传入大量参数，可考虑使用命令模式。
+        说明：过多的传入参数可能意味着一个方法缺乏封装，或者承担了过多职责需要拆分；对于构造方法需要传入很多参数的情景
+        ，可以考虑使用Builder模式构造这样的复杂对象-->
+        <module name="ParameterNumber"/>
+
+        <!-- 单个方法的总行数不超过150行，建议不超过80行 -->
+        <module name="MethodLength"/>
+
+        <!-- 不允许任何魔法值（即未经预先定义的常量）直接出现在代码中 -->
+        <module name="MagicNumber">
+            <!-- 宽松点吧 -->
+            <property name="ignoreNumbers"
+                      value="-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,30,31,60,100,255,256,1000,1024,16384,65535"/>
+            <property name="ignoreHashCodeMethod" value="true"/>
+            <property name="ignoreAnnotation" value="true"/>
+            <property name="ignoreFieldDeclaration" value="true"/>
+            <property name="ignoreAnnotationElementDefaults" value="true"/>
+        </module>
+
+        <!-- 类、类属性、类方法的注释必须使用Javadoc规范，使用/**内容*/格式，不得使用//xxx 方式 -->
+        <!--        <module name="JavadocVariable">-->
+        <!--            <property name="ignoreNamePattern" value="log|logger"/>-->
+        <!--        </module>-->
+        <!--        <module name="JavadocMethod">-->
+        <!--            <property name="scope" value="private"/>-->
+        <!--            <property name="allowMissingParamTags" value="true"/>-->
+        <!--            <property name="allowMissingReturnTag" value="true"/>-->
+        <!--        </module>-->
+        <!-- 方法内部单行注释，在被注释语句上方另起一行，使用//注释。方法内部多行注释使 用/*内容*/注释，禁止使用/**内容*/格式 -->
+
+        <!-- 除cli程序外，禁止使用System.out、System.err、Throwable.printStackTrace()打印日志。
+        说明：直接使用标准输出、标准错误等，在并发场景下性能开销很高，请警惕这些性能杀手，避免使用 -->
+        <module name="RegexpSinglelineJava">
+            <!-- . matches any character, so we need to escape it and use \. to match dots. -->
+            <property name="severity" value="warning"/>
+            <property name="format" value="System\.out|System\.err|Throwable\.printStackTrace"/>
+            <property name="ignoreComments" value="true"/>
+            <property name="message"
+                      value="除cli程序外，禁止使用System.out、System.err、Throwable.printStackTrace()打印日志。说明：直接使用标准输出、标准错误等，在并发场景下性能开销很高，请警惕这些性能杀手，避免使用"/>
+        </module>
+
+        <!-- 禁止依赖Object.finalize()回收对象资源 -->
+        <module name="RegexpSinglelineJava">
+            <property name="severity" value="warning"/>
+            <property name="format" value="\.finalize()"/>
+            <property name="message" value="禁止依赖Object.finalize()回收对象资源"/>
+        </module>
+
+        <!-- 不允许在程序任何地方中使用：java.sql.Date、java.sql.Time、java.sql.Timestamp -->
+        <module name="RegexpSinglelineJava">
+            <property name="severity" value="warning"/>
+            <property name="format" value="java\.sql\.Date|java\.sql\.Time|java\.sql\.Timestamp"/>
+            <property name="message" value="不允许在程序任何地方中使用：java.sql.Date、java.sql.Time、java.sql.Timestamp"/>
+        </module>
+
+        <!-- 禁止使用java.util.concurrent.Executors方法创建线程池，避免资源耗尽风险 -->
+        <!--        <module name="RegexpSinglelineJava">-->
+        <!--            <property name="format" value="Executors.new"/>-->
+        <!--            <property name="message" value="禁止使用java.util.concurrent.Executors方法创建线程池，避免资源耗尽风险"/>-->
+        <!--        </module>-->
+
+        <!-- 日期格式化时，传入pattern中表示年份统一使用小写的y -->
+        <!--        <module name="RegexpSinglelineJava">-->
+        <!--            <property name="format"-->
+        <!--                      value=".*?(DateFormat|SimpleDateFormat|DateTimeFormatter|DateTimeFormat).*?YYYY.*?"/>-->
+        <!--            <property name="message" value="日期格式化时，传入pattern中表示年份统一使用小写的y "/>-->
+        <!--        </module>-->
+
+        <module name="RegexpSinglelineJava">
+            <property name="severity" value="warning"/>
+            <property name="format" value="SimpleDateFormat\(.*?YYYY.*?\)|DateTimeFormatter\.ofPattern\(.*?YYYY.*?\)"/>
+            <property name="message" value="日期格式化时，传入pattern中表示年份统一使用小写的y"/>
+        </module>
+
+        <!-- Checks for Headers                                -->
+        <!-- See http://checkstyle.sf.net/config_header.html   -->
+        <!-- <module name="Header">                            -->
+        <!-- The follow property value demonstrates the ability     -->
+        <!-- to have access to ANT properties. In this case it uses -->
+        <!-- the ${basedir} property to allow Checkstyle to be run  -->
+        <!-- from any directory within a project. See property      -->
+        <!-- expansion,                                             -->
+        <!-- http://checkstyle.sf.net/config.html#properties        -->
+        <!-- <property                                              -->
+        <!--     name="headerFile"                                  -->
+        <!--     value="${basedir}/java.header"/>                   -->
+        <!-- </module> -->
+
+
+        <!-- Checks for imports                              -->
+        <!-- See http://checkstyle.sourceforge.net/config_imports.html -->
+        <module name="UnusedImports"/>
+
+
+        <!-- Checks for Size Violations.                    -->
+        <!-- See http://checkstyle.sf.net/config_sizes.html -->
+
+
+        <!-- Checks for whitespace                               -->
+        <!-- See http://checkstyle.sf.net/config_whitespace.html -->
+
+
+        <!-- Modifier Checks                                    -->
+        <!-- See http://checkstyle.sf.net/config_modifiers.html -->
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier">
+            <property name="tokens" value="METHOD_DEF"/>
+        </module>
+
+
+        <!-- Checks for blocks. You know, those {}'s         -->
+        <!-- See http://checkstyle.sf.net/config_blocks.html -->
+        <module name="AvoidNestedBlocks">
+            <property name="severity" value="warning"/>
+            <property name="allowInSwitchCase" value="true"/>
+        </module>
+
+
+        <!-- Checks for common coding problems               -->
+        <!-- See http://checkstyle.sf.net/config_coding.html -->
+        <!--        <module name="AvoidInlineConditionals"/>-->
+        <module name="EmptyStatement"/>
+        <module name="EqualsHashCode"/>
+        <module name="HiddenField">
+            <property name="severity" value="warning"/>
+            <property name="ignoreConstructorParameter" value="true"/>
+            <property name="ignoreSetter" value="true"/>
+            <property name="setterCanReturnItsClass" value="true"/>
+            <property name="ignoreAbstractMethods" value="true"/>
+        </module>
+        <module name="IllegalInstantiation"/>
+        <module name="InnerAssignment"/>
+        <module name="MissingSwitchDefault"/>
+        <module name="SimplifyBooleanExpression">
+            <property name="severity" value="warning"/>
+        </module>
+        <module name="SimplifyBooleanReturn"/>
+
+        <!-- Checks for class design                         -->
+        <!-- See http://checkstyle.sf.net/config_design.html -->
+        <!--        <module name="DesignForExtension"/>-->
+        <!--        <module name="FinalClass"/>-->
+        <!--        <module name="HideUtilityClassConstructor"/>-->
+        <!--<module name="InterfaceIsType"/>-->
+        <module name="VisibilityModifier">
+            <property name="protectedAllowed" value="true"/>
+        </module>
+
+
+        <!-- Miscellaneous other checks.                   -->
+        <!-- See http://checkstyle.sf.net/config_misc.html -->
+        <module name="ArrayTypeStyle"/>
+        <!--        <module name="FinalParameters"/>-->
+        <!--        <module name="TodoComment"/>-->
+        <module name="UpperEll"/>
+
+    </module>
+
+    <!-- Support @SuppressWarnings (added in Checkstyle 5.7) -->
+    <!-- see http://checkstyle.sourceforge.net/config.html#SuppressWarningsFilter -->
+    <module name="SuppressWarningsFilter"/>
+
+    <!-- 除包名、包导入外，单行代码的最大长度不应超过150个字符。说明：过长的单行代码会影响可读性，因此需要恰当地对单行长代码进行换行 -->
+    <module name="LineLength">
+        <!-- 比eclipse的format大些，避免太多这个错误-->
+        <property name="max" value="150"/>
+        <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+        <property name="fileExtensions" value="java"/>
+    </module>
+
+    <module name="SuppressionFilter">
+        <!--         eclipse的config_loc变量居然有/，希望所有平台行为都一样-->
+        <!--        <property name="file" value="${config_loc}kuaishou-checkstyle-suppressions.xml"/>-->
+        <property name="file" value="${checkstyle.suppressions.file}"/>
+    </module>
+
+    <!-- Checks properties file for a duplicated properties. -->
+    <!-- See http://checkstyle.sourceforge.net/config_misc.html#UniqueProperties -->
+    <module name="UniqueProperties"/>
+
+    <!-- 每行代码的行末不要出现空格 -->
+    <module name="RegexpSingleline">
+        <!-- \s matches whitespace character, $ matches end of line. -->
+        <property name="format" value="\s+$"/>
+        <property name="message" value="每行代码的行末不要出现空格"/>
+    </module>
+
+    <!-- 代码及注释中禁止使用侮辱性或者歧视性词语 简单检查一下 -->
+    <module name="RegexpSingleline">
+        <!-- \s matches whitespace character, $ matches end of line. -->
+        <property name="severity" value="warning"/>
+        <property name="format" value="艹|fuck|shit"/>
+        <property name="message" value="代码及注释中禁止使用侮辱性或者歧视性词语"/>
+    </module>
+
+    <!-- 注释的双斜线后到内容之间必须接一个空格 -->
+    <!--    <module name="RegexpSingleline">-->
+    <!--        <property name="format" value="[^:]//[^\s]"/>-->
+    <!--        <property name="message" value="规则：请添加空格(单行注释符与注释内容之间以空格分割)"/>-->
+    <!--    </module>-->
+
+</module>
