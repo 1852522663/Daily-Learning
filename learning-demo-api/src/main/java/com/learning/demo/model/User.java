@@ -20,35 +20,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements Serializable {
-    /**
-     *
-     */
+
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     *
-     */
+
     private String name;
 
-    /**
-     *
-     */
+
     private String sex;
 
-    /**
-     *
-     */
+
     private String pwd;
 
-    /**
-     *
-     */
+
     private String email;
 
-    /**
-     *
-     */
+
     private Integer status;
 
 

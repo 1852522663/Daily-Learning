@@ -1,9 +1,9 @@
 package com.learning.demo.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.learning.demo.event.EventPublisher;
 import com.learning.demo.model.HttpStatusEnum;
 import com.learning.demo.model.ResponseResult;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.learning.demo.model.ResponseResult;
 import com.learning.demo.model.User;
 import com.learning.demo.service.UserService;
 
@@ -45,7 +44,7 @@ public class UserController {
     public ResponseResult list(User user) {
         eventPublisher.publish("查询列表被监听");
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(user.getName())) {
+        if (!StrUtil.isEmpty(user.getName())) {
             queryWrapper.like("name", user.getName());
         }
         if (user.getStatus() != null) {
@@ -59,7 +58,7 @@ public class UserController {
     @GetMapping("listPage")
     public ResponseResult listPage(Integer pageNo, Integer pageSize, User user) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(user.getName())) {
+        if (!StrUtil.isEmpty(user.getName())) {
             queryWrapper.like("name", user.getName());
         }
         if (user.getStatus() != null) {
