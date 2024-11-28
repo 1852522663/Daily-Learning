@@ -1,6 +1,4 @@
-logging:
-  access:
-    enabled: true
+
 spring:
   profiles:
     active: dev

@@ -1,6 +1,7 @@
 package com.learning.demo.controller;
 
 import cn.hutool.core.util.StrUtil;
+import com.learning.demo.aop.LogExecutionTime;
 import com.learning.demo.event.EventPublisher;
 import com.learning.demo.model.HttpStatusEnum;
 import com.learning.demo.model.ResponseResult;
@@ -30,6 +31,7 @@ public class UserController {
     @Autowired
     private EventPublisher eventPublisher;
 
+    @LogExecutionTime
     @RequestMapping("add")
     public ResponseResult add(User user) {
         user.setStatus(1);
@@ -40,6 +42,7 @@ public class UserController {
         return ResponseResult.success();
     }
 
+    @LogExecutionTime
     @GetMapping("list")
     public ResponseResult list(User user) {
         eventPublisher.publish("查询列表被监听");
@@ -55,6 +58,7 @@ public class UserController {
         return ResponseResult.success(userService.list(queryWrapper));
     }
 
+    @LogExecutionTime
     @GetMapping("listPage")
     public ResponseResult listPage(Integer pageNo, Integer pageSize, User user) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -71,6 +75,7 @@ public class UserController {
         return ResponseResult.success(pageInfo);
     }
 
+    @LogExecutionTime
     @RequestMapping("update")
     public ResponseResult update(User user) {
         boolean update = userService.updateById(user);
@@ -80,6 +85,7 @@ public class UserController {
         return ResponseResult.success();
     }
 
+    @LogExecutionTime
     @RequestMapping("delete")
     public ResponseResult delete(Integer id) {
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
@@ -93,6 +99,7 @@ public class UserController {
         return ResponseResult.success();
     }
 
+    @LogExecutionTime
     @RequestMapping("deleteById")
     public ResponseResult deleteById(Integer id) {
         boolean removeById = userService.removeById(id);

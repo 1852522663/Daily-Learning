@@ -23,23 +23,16 @@ public class User implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-
-
+    @TableField("name")
     private String name;
-
-
+    @TableField("sex")
     private String sex;
-
-
+    @TableField("pwd")
     private String pwd;
-
-
+    @TableField("email")
     private String email;
-
-
+    @TableField("status")
     private Integer status;
-
-
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

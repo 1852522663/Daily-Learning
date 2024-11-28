@@ -46,6 +46,16 @@
             <version>3.12.0</version>
         </dependency>
         <!-- 分隔线 以上是RPC所用 -->
+        <!--  logging -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+        <!--  AOP -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
         <!--  引入 MySQL 驱动 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -53,7 +63,6 @@
             <version>8.0.30</version>  <!-- 使用你需要的版本 -->
             <scope>runtime</scope>  <!-- 只有在运行时需要 -->
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

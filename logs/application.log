@@ -1,0 +1,14 @@
+2024-11-28 22:04:33 [INFO ] c.l.demo.LearningDemoApplication - Starting LearningDemoApplication using Java 11.0.3 on yueheweideMacBook-Pro.local with PID 53125 (/Users/yuehewei/kuaishou-java/Daily-Learning/learning-demo-api/target/classes started by yuehewei in /Users/yuehewei/kuaishou-java/Daily-Learning)
+2024-11-28 22:04:33 [INFO ] c.l.demo.LearningDemoApplication - The following profiles are active: dev
+2024-11-28 22:04:36 [INFO ] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8888"]
+2024-11-28 22:04:36 [INFO ] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-11-28 22:04:36 [INFO ] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.54]
+2024-11-28 22:04:36 [INFO ] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-11-28 22:04:43 [INFO ] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8888"]
+2024-11-28 22:04:43 [INFO ] c.l.demo.LearningDemoApplication - Started LearningDemoApplication in 11.565 seconds (JVM running for 19.72)
+2024-11-28 22:05:21 [INFO ] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-28 22:05:21 [INFO ] c.l.demo.event.MyEventListener - Received spring custom event - 查询列表被监听
+2024-11-28 22:05:21 [INFO ] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-11-28 22:05:21 [WARN ] c.z.hikari.util.DriverDataSource - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2024-11-28 22:05:21 [INFO ] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-11-28 22:05:21 [INFO ] com.learning.demo.aop.LoggingAspect - ResponseResult com.learning.demo.controller.UserController.list(User) executed in 619ms
