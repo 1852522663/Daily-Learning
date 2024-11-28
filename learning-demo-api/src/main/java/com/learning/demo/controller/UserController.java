@@ -1,5 +1,6 @@
 package com.learning.demo.controller;
 
+import com.learning.demo.event.EventPublisher;
 import com.learning.demo.model.HttpStatusEnum;
 import com.learning.demo.model.ResponseResult;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +28,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private EventPublisher eventPublisher;
 
     @RequestMapping("add")
     public ResponseResult add(User user) {
@@ -40,6 +43,7 @@ public class UserController {
 
     @GetMapping("list")
     public ResponseResult list(User user) {
+        eventPublisher.publish("查询列表被监听");
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(user.getName())) {
             queryWrapper.like("name", user.getName());

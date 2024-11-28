@@ -1,9 +1,8 @@
 package com.learning.demo.controller;
 
-import com.learning.demo.KuaishouDemoApplication;
-import com.learning.demo.model.Message;
+import com.learning.demo.LearningDemoApplication;
+import com.learning.demo.model.ResponseResult;
 import com.learning.demo.model.User;
-
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = KuaishouDemoApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = LearningDemoApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class UserControllerTest {
 
 
@@ -30,7 +29,7 @@ class UserControllerTest {
         user.setSex("男");
         user.setPwd("1233");
         user.setEmail("3413@qq.com");
-        Message add = userController.add(user);
+        ResponseResult add = userController.add(user);
         System.out.println(add);
     }
 

@@ -65,9 +65,6 @@ public class DataImport {
 //        dataImport.importDataFromFile2(file);
 //    }
 
-    /**
-     * 社科商业化特定
-     */
     public void importDataFromFile2(MultipartFile file) {
         try {
             Workbook workbook = WorkbookFactory.create(file.getInputStream());
