@@ -26,5 +26,5 @@
 
     <!-- 可以为特定包或类设置不同的日志级别 -->
     <logger name="org.springframework" level="WARN"/>
-
+    <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG"/>
 </configuration>

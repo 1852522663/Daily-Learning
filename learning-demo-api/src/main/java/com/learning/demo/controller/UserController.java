@@ -37,7 +37,6 @@ public class UserController {
     }
 
     @LogExecutionTime
-    @LogOutput(value = "查询列表")
     @GetMapping("list")
     public ResponseResult list(User user) {
         return ResponseResult.success(userService.list(user));
